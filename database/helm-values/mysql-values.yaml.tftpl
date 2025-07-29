@@ -1,0 +1,26 @@
+auth:
+  rootPassword: "${rootpassword}"
+  createDatabase: false
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 40
+  periodSeconds: 20
+  successThreshold: 1
+  timeoutSeconds: 240
+#  replicationPassword: "newReplicationPassword123"
+image:
+  debug: true
+primary:
+  service:
+    externalIPs:
+    %{~ for ip in externalIPs  ~}
+      - "${ip}"
+    %{~ endfor ~}
+#volumePermissions:
+#  enabled: true
+initdbScripts:
+  init_databases.sql: |
+--    CREATE DATABASE IF NOT EXISTS `pim`;
+--    CREATE DATABASE IF NOT EXISTS `shop`;
+--    GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+--    FLUSH PRIVILEGES;
