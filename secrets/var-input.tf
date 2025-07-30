@@ -8,3 +8,14 @@ variable "mysql_namespace" {
   type = string
   default = "default"
 }
+
+variable "postgres_rootpassword" {
+  type = string
+  default = "pa$$word"
+  sensitive = true
+}
+
+variable "postgres_namespace" {
+  type = string
+  default = "default"
+}
