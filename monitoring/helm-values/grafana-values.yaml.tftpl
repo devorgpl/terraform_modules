@@ -24,8 +24,4 @@ datasources:
 ingress:
   enabled: true
   className: "traefik"
-  hosts:
-    - host: ${hostname}
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
+  hostname: ${hostname}

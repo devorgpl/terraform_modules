@@ -1,8 +1,14 @@
-ingress:
-  enabled: true
-  className: "traefik"
-  hosts:
-    - host: ${hostname}
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
+server:
+    ingress:
+      enabled: true
+      className: "traefik"
+      hosts:
+        - host: ${hostname}
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+    service:
+        type: NodePort
+alertmanager:
+  service:
+    type: NodePort
