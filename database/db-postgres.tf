@@ -1,4 +1,5 @@
 resource "helm_release" "postgres" {
+  count = var.postgres_enabled_count
   name       = "postgresql"
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "postgresql"

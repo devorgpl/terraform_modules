@@ -18,6 +18,16 @@ variable "mysql_existing_secret" {
   default = "default"
 }
 
+variable "mysql_enabled_count" {
+  type = number
+  default = 1
+}
+
+variable "postgres_enabled_count" {
+  type = number
+  default = 1
+}
+
 variable "postgres_rootpassword" {
   type = string
   default = null

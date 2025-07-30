@@ -1,4 +1,5 @@
 resource "helm_release" "mysql" {
+  count = var.mysql_enabled_count
   name       = "mysql"
   chart      = "oci://registry-1.docker.io/bitnamicharts/mysql"
   version = "13.0.3"
