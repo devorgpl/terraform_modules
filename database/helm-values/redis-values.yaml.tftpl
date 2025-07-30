@@ -1,0 +1,8 @@
+master:
+  service:
+    externalIPs:
+      %{~ for ip in externalIPs  ~}
+      - "${ip}"
+      %{~ endfor ~}
+auth:
+  enabled: false

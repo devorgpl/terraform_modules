@@ -20,3 +20,13 @@ resource "kubernetes_secret_v1" "postgres" {
     "postgres-password": var.postgres_rootpassword
   }
 }
+
+resource "kubernetes_secret_v1" "redis" {
+  metadata {
+    name = "redissecret"
+    namespace = var.redis_namespace
+  }
+  data = {
+    "redis-root-password": var.redis_rootpassword
+  }
+}

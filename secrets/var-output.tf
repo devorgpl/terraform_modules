@@ -9,3 +9,7 @@ output "mysql_secret_name" {
 output "postgres_secret_name" {
   value = kubernetes_secret_v1.postgres.metadata[0].name
 }
+
+output "redis_secret_name" {
+  value = kubernetes_secret_v1.redis.metadata[0].name
+}
