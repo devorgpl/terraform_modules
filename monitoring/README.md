@@ -1,5 +1,5 @@
 logs (openobserve)
-metrics (prometheus/graphana)
+metrics (prometheus/grafana)
 istio (+ plugins)
 
 # Istio

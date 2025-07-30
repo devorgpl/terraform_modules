@@ -7,11 +7,15 @@ module "secrets" {
 
 module "monitoring" {
   source = "../../monitoring"
+  prometheus_namespace = "monitoring"
+  grafana_namespace = "monitoring"
+  depends_on = [module.secrets]
 }
 
 module "dev_test_services" {
   source = "../../dev_test"
   mailpit_hostname = var.mailpit_hostname
+  depends_on = [module.secrets]
 }
 
 module "database_services" {
