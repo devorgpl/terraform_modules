@@ -1,5 +1,5 @@
 output "mysql_host" {
-  value = "${helm_release.mysql[0].name}.${helm_release.mysql[0].namespace}.svc.cluster.local:1025"
+  value = var.mysql_enabled_count == 1 ? "${helm_release.mysql[0].name}.${helm_release.mysql[0].namespace}.svc.cluster.local:1025": ""
 }
 
 output "mysql_rootpassword" {

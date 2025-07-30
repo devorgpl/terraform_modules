@@ -1,0 +1,11 @@
+#  helm upgrade --install -f local-values/openobserve-values.yaml o2 openobserve/openobserve-standalone
+#  ZO_ROOT_USER_EMAIL: "root@example.com"
+#  ZO_ROOT_USER_PASSWORD: "Complexpass#123"
+ingress:
+  enabled: true
+  className: "traefik"
+  hosts:
+    - host: ${hostname}
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
