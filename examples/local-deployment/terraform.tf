@@ -5,8 +5,8 @@ module "secrets" {
   postgres_rootpassword = var.postgres_rootpassword
 }
 
-module "substitute_services" {
-  source = "../../substitute"
+module "dev_test_services" {
+  source = "../../dev_test"
   mailpit_hostname = var.mailpit_hostname
 }
 
