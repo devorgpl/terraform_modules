@@ -1,0 +1,4 @@
+- database create job (pg, mysql) + user/pass + secret + output
+- monitoring
+- keycloak
+- apps
