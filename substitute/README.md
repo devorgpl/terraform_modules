@@ -1,0 +1,3 @@
+mailpit
+
+phpmyadmin

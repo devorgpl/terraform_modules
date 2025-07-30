@@ -1,6 +1,15 @@
 auth:
+  %{~ if existingSecret != null && existingSecret != "" ~}
+  existingSecret: ${existingSecret}
+  %{~ endif ~}
+  %{~ if rootpassword != null && rootpassword != "" ~}
   rootPassword: "${rootpassword}"
+  %{~ endif ~}
   createDatabase: false
+passwordUpdateJob:
+  enabled: false
+  previousPasswords:
+    existingSecret: previous-password-secret
 livenessProbe:
   failureThreshold: 3
   initialDelaySeconds: 40
@@ -20,7 +29,7 @@ primary:
 #  enabled: true
 initdbScripts:
   init_databases.sql: |
---    CREATE DATABASE IF NOT EXISTS `pim`;
---    CREATE DATABASE IF NOT EXISTS `shop`;
---    GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
---    FLUSH PRIVILEGES;
+    --    CREATE DATABASE IF NOT EXISTS `pim`;
+    --    CREATE DATABASE IF NOT EXISTS `shop`;
+    --    GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+    --    FLUSH PRIVILEGES;

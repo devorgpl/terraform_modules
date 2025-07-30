@@ -1,3 +1,10 @@
+
+module "secrets" {
+  source = "../../secrets"
+  mysql_rootpassword = "rootpa$$word"
+
+}
+
 module "substitute_services" {
   source = "../../substitute"
   mailpit_hostname = var.mailpit_hostname
@@ -5,6 +12,7 @@ module "substitute_services" {
 
 module "database_services" {
   source = "../../database"
-  mysql_rootpassword = var.mysql_rootpassword
   mysql_externalIPs = var.mysql_externalIPs
+  mysql_existing_secret = module.secrets.mysql_secret_name
+  depends_on = [module.secrets]
 }
