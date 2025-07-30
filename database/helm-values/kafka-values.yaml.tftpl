@@ -1,0 +1,12 @@
+controller:
+    replicaCount: 1
+    service:
+      externalIPs:
+        %{~ for ip in externalIPs  ~}
+          - "${ip}"
+        %{~ endfor ~}
+service:
+  externalIPs:
+    %{~ for ip in externalIPs  ~}
+      - "${ip}"
+    %{~ endfor ~}
