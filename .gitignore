@@ -17,6 +17,7 @@ buildNumber.properties
 .classpath
 .idea
 *.lock.hcl
+*.lock.info
 *.tfstate
 *.tfstate.backup
 .terraform
