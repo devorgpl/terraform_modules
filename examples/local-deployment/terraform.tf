@@ -12,6 +12,12 @@ module "monitoring" {
   depends_on = [module.secrets]
 }
 
+module "oidc" {
+  source = "../../oidc"
+  keycloak_hostname = "keycloak.172.31.65.109.nip.io"
+  keycloak_enabled_count = 0
+}
+
 module "dev_test_services" {
   source = "../../dev_test"
   mailpit_hostname = var.mailpit_hostname

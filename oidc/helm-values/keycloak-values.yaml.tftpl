@@ -1,0 +1,38 @@
+metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+auth:
+  ## @param auth.adminUser Keycloak administrator user
+  ##
+  adminUser: "adminuser"
+  ## @param auth.adminPassword Keycloak administrator password for the new user
+  ##
+  adminPassword: "secreTPa$$word"
+  # kubectl create secret generic SECRET_NAME --from-literal=admin-password=PASSWORD --dry-run -o yaml | kubectl apply -f -
+  # existingSecret: ""
+# postgresql.enabled=false
+# externalDatabase.host=myexternalhost
+# externalDatabase.user=myuser
+# externalDatabase.password=mypassword
+# externalDatabase.database=mydatabase
+# externalDatabase.port=5432
+# externalDatabase.schema=public
+ingress:
+  enabled: true
+  className: "traefik"
+  hostname: ${hostname}
+adminIngress:
+  enabled: true
+  hostname: admin-${hostname}
+keycloakConfigCli:
+  enabled: true
+  configuration:
+    master.json: |
+      {
+        "realm" : "master",
+        "attributes": {
+          "frontendUrl": "https://admin-${hostname}"
+        }
+      }
