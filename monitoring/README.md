@@ -8,6 +8,11 @@ Issues with mount "/"
 ```
 kubectl patch ds monitoring-prometheus-node-exporter --type "json" -p '[{"op": "remove", "path" : "/spec/template/spec/containers/0/volumeMounts/2/mountPropagation"}]'
 ```
+or 
+
+```
+helm install prom prometheus-community/kube-prometheus-stack --set prometheus-node-exporter.hostRootFsMount.enabled=false
+```
 
 # Istio
 ```
