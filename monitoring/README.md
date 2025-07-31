@@ -2,6 +2,13 @@ logs (openobserve)
 metrics (prometheus/grafana)
 istio (+ plugins)
 
+# Prometheus
+
+Issues with mount "/"
+```
+kubectl patch ds monitoring-prometheus-node-exporter --type "json" -p '[{"op": "remove", "path" : "/spec/template/spec/containers/0/volumeMounts/2/mountPropagation"}]'
+```
+
 # Istio
 ```
 helm repo add istio https://istio-release.storage.googleapis.com/charts
