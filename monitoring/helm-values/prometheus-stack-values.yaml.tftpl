@@ -1,0 +1,12 @@
+# custom-values.yaml
+prometheus:
+  service:
+    type: NodePort
+grafana:
+    ingress:
+      enabled: true
+      className: "traefik"
+      hosts:
+       - ${hostname}
+    service:
+        type: NodePort
