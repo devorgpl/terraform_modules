@@ -10,3 +10,10 @@ service:
     %{~ for ip in externalIPs  ~}
       - "${ip}"
     %{~ endfor ~}
+metrics:
+  ## Prometheus JMX exporter: exposes the majority of Kafka metrics
+  ##
+  jmx:
+    ## @param metrics.jmx.enabled Whether or not to expose JMX metrics to Prometheus
+    ##
+    enabled: true

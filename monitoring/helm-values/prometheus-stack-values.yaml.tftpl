@@ -1,12 +1,39 @@
 # custom-values.yaml
 prometheus:
-  service:
-    type: NodePort
+    service:
+        type: NodePort
+    ingress:
+      enabled: true
+      className: "traefik"
+      hosts:
+       - ${prometheus_hostname}
+    thanosServiceMonitor:
+        enabled: false
+    thanosService:
+        enabled: false
+    serviceMonitor:
+        scheme: "http"
+    prometheusSpec:
+          additionalScrapeConfigs:
+            - job_name: 'kubernetes-services'
+              scheme: http
+              kubernetes_sd_configs:
+                - role: service
+              relabel_configs:
+                - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+                  action: keep
+                  regex: true
+
 grafana:
     ingress:
       enabled: true
       className: "traefik"
       hosts:
-       - ${hostname}
+       - ${grafana_hostname}
     service:
         type: NodePort
+
+# workaround for k3s
+prometheus-node-exporter:
+  hostRootFsMount:
+    enabled: false
