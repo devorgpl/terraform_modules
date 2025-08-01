@@ -30,3 +30,15 @@ variable "redis_namespace" {
   type = string
   default = "default"
 }
+
+# secreTPa$$word
+variable "keycloak_rootpassword" {
+  type = string
+  default = "password"
+  sensitive = true
+}
+
+variable "keycloak_namespace" {
+  type = string
+  default = "idp"
+}

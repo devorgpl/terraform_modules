@@ -15,15 +15,15 @@ variable "keycloak_hostname" {
 
 variable "keycloak_admin_password" {
   type = string
-  default = "default"
+  default = "password"
 }
 
 variable "keycloak_namespace" {
   type = string
-  default = "default"
+  default = "idp"
 }
 
 variable "keycloak_existing_secret" {
   type = string
-  default = null
+  default = "keycloaksecret"
 }

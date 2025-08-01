@@ -1,17 +1,17 @@
 metrics:
-    enabled: true
+    enabled: false
     serviceMonitor:
       enabled: true
 
 auth:
   ## @param auth.adminUser Keycloak administrator user
   ##
-  adminUser: "adminuser"
+  adminUser: admin
   ## @param auth.adminPassword Keycloak administrator password for the new user
   ##
-  adminPassword: "secreTPa$$word"
+  adminPassword: ${admin_password}
   # kubectl create secret generic SECRET_NAME --from-literal=admin-password=PASSWORD --dry-run -o yaml | kubectl apply -f -
-  # existingSecret: ""
+  existingSecret: ${existing_secret}
 # postgresql.enabled=false
 # externalDatabase.host=myexternalhost
 # externalDatabase.user=myuser
@@ -27,7 +27,7 @@ adminIngress:
   enabled: true
   hostname: admin-${hostname}
 keycloakConfigCli:
-  enabled: true
+  enabled: false
   configuration:
     master.json: |
       {

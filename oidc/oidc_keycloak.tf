@@ -9,6 +9,8 @@ resource "helm_release" "keycloak" {
   values = [
     templatefile("${path.module}/helm-values/keycloak-values.yaml.tftpl", {
       hostname = var.keycloak_hostname
+      admin_password = var.keycloak_admin_password
+      existing_secret = var.keycloak_existing_secret
     })
   ]
 }

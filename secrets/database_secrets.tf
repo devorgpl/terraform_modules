@@ -19,6 +19,7 @@ resource "kubernetes_secret_v1" "postgres" {
     "postgres-root-password": var.postgres_rootpassword
     "postgres-password": var.postgres_rootpassword
   }
+
 }
 
 resource "kubernetes_secret_v1" "redis" {
