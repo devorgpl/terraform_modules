@@ -1,5 +1,5 @@
 resource "helm_release" "prometheus-stack" {
-  count = 1
+  count = var.prometheus_enabled_count
   name       = "prometheus-stack"
   chart      = "kube-prometheus-stack"
   repository = "https://prometheus-community.github.io/helm-charts"

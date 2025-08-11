@@ -1,0 +1,13 @@
+auth:
+  %{~ if existingSecret != null && existingSecret != "" ~}
+  existingSecret: ${existingSecret}
+  %{~ endif ~}
+  %{~ if rootpassword != null && rootpassword != "" ~}
+  password: "${rootpassword}"
+  %{~ endif ~}
+#  replicationPassword: "newReplicationPassword123"
+primary:
+  pgHbaConfiguration: |
+    host all all all trust
+metrics:
+  enabled: true
