@@ -13,3 +13,26 @@ resource "helm_release" "postgres" {
     })
   ]
 }
+
+resource "kubernetes_service_v1" "postgres_external" {
+  depends_on = [helm_release.postgres]
+  metadata {
+    name = "postgresql-external"
+    namespace = var.postgres_namespace
+  }
+  spec {
+    type = "ClusterIP"
+    selector = {
+      "app.kubernetes.io/component" = "primary"
+      "app.kubernetes.io/instance" = "postgresql"
+      "app.kubernetes.io/name": "postgresql"
+    }
+    port {
+      name = "tcp-postgresql"
+      port        = 5432
+      target_port = "tcp-postgresql"
+      protocol = "TCP"
+    }
+    external_ips = var.postgres_externalIPs
+  }
+}

@@ -20,5 +20,5 @@ variable "grafana_hostname" {
 
 variable "grafana_namespace" {
   type = string
-  default = var.prometheus_namespace
+  default = "default"
 }

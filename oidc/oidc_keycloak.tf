@@ -1,5 +1,6 @@
 
 resource "helm_release" "keycloak" {
+  count = var.keycloak_enabled_count
   name       = "keycloak"
   chart      = "oci://registry-1.docker.io/bitnamicharts/keycloak"
   version = "24.8.1"

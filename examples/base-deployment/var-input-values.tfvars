@@ -1,2 +1,2 @@
 postgres_rootpassword = "password"
-postgres_externalIPs = ["172.31.65.109"]
+postgres_externalIPs = ["172.31.65.101"]
