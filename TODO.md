@@ -2,3 +2,4 @@
 - monitoring
 - keycloak
 - apps
+- certificates
