@@ -50,7 +50,7 @@ module "oidc" {
 module "monitoring_prometheus" {
   source = "../../monitoring/prometheus"
   prometheus_namespace = "monitoring"
-  prometheus_enabled_count = 0
+  prometheus_enabled_count = 1
   depends_on = [module.secrets]
 }
 

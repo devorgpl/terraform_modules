@@ -3,3 +3,4 @@
 - keycloak
 - apps
 - certificates
+- repository proxy
