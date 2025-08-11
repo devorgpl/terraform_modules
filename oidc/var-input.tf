@@ -27,3 +27,17 @@ variable "keycloak_existing_secret" {
   type = string
   default = "keycloaksecret"
 }
+
+variable "keycloak_db_host" {
+  type = string
+}
+
+variable "keycloak_db_user" {
+  type = string
+}
+variable "keycloak_db_password" {
+  type = string
+}
+variable "keycloak_db_database" {
+  type = string
+}

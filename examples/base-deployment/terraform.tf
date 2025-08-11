@@ -40,7 +40,11 @@ resource "postgresql_database" "keycloak" {
 module "oidc" {
   source = "../../oidc"
   keycloak_hostname = "keycloak.172.31.65.109.nip.io"
-  keycloak_enabled_count = 0
+  keycloak_enabled_count = 1
+  keycloak_db_host = module.database_postgres.postgres_hostname
+  keycloak_db_user = "keycloak"
+  keycloak_db_database = "keycloak"
+  keycloak_db_password = "keycloakdbpass"
 }
 
 module "monitoring_prometheus" {

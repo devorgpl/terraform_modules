@@ -12,6 +12,10 @@ resource "helm_release" "keycloak" {
       hostname = var.keycloak_hostname
       admin_password = var.keycloak_admin_password
       existing_secret = var.keycloak_existing_secret
+      db_host = var.keycloak_db_host
+      db_user = var.keycloak_db_user
+      db_password = var.keycloak_db_password
+      db_database = var.keycloak_db_database
     })
   ]
 }
