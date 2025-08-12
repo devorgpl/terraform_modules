@@ -11,8 +11,8 @@ resource "helm_release" "prometheus-stack" {
     templatefile("${path.module}/helm-values/prometheus-stack-values.yaml.tftpl", {
       grafana_hostname = var.grafana_hostname
       prometheus_hostname = var.prometheus_hostname
-      prometheus_url = "http://prometheus-server.monitoring.svc.cluster.local:80"
-      prometheus_alert_url = "http://prometheus-alertmanager.monitoring.svc.cluster.local:80"
+      prometheus_url = "http://prometheus-server.${var.prometheus_namespace}.svc.cluster.local:80"
+      prometheus_alert_url = "http://prometheus-alertmanager.${var.prometheus_namespace}.svc.cluster.local:80"
     })
   ]
 }

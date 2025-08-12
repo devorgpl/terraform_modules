@@ -9,5 +9,5 @@ module "monitoring_prometheus" {
 module "monitoring_openobserve" {
   source = "../../monitoring/openobserve"
   openobserve_namespace = "monitoring"
-  openobserve_hostname = "openobserve.172.31.65.109.nip.io"
+  openobserve_hostname = var.openobserve_hostname
 }
