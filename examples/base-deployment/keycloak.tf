@@ -35,7 +35,7 @@ resource "postgresql_database" "keycloak" {
 
 module "oidc" {
   source = "../../oidc"
-  keycloak_hostname = "keycloak.172.31.65.109.nip.io"
+  keycloak_hostname = var.keycloak_hostname
   keycloak_existing_secret = kubernetes_secret_v1.keycloak.metadata[0].name
   keycloak_enabled_count = 1
   keycloak_db_host = module.database_postgres.postgres_hostname
