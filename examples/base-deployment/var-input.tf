@@ -28,3 +28,8 @@ variable "keycloak_admin_password" {
   type = string
   default = "kcdefaultpass"
 }
+
+variable "minio_hostname" {
+  type = string
+  default = "minio.172.31.65.109.nip.io"
+}

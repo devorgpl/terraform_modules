@@ -1,0 +1,12 @@
+architecture: standalone
+master:
+  service:
+    externalIPs:
+      %{~ for ip in externalIPs  ~}
+      - "${ip}"
+      %{~ endfor ~}
+auth:
+  enabled: false
+ingress:
+  enabled: true
+  hostname: ${hostname}

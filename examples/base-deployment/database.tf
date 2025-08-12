@@ -31,3 +31,12 @@ provider "postgresql" {
   host = var.postgres_externalIPs[0]
   sslmode  = "disable"
 }
+
+# MINIO
+module "database_minio" {
+  source = "../../database/minio"
+  minio_existing_secret = kubernetes_secret_v1.postgres.metadata[0].name
+  minio_externalIPs = var.postgres_externalIPs
+  depends_on = [kubernetes_secret_v1.postgres]
+  minio_namespace = var.postgres_namespace
+}

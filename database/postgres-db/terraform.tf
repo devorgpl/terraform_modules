@@ -1,3 +1,4 @@
+# NOT WORKING!
 locals {
   create_script = templatefile("${path.module}/templates/create_db_if_not_exists.sql.tftpl", {
     database_name: var.postgres_rootpassword,
