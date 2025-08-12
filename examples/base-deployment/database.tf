@@ -39,4 +39,5 @@ module "database_minio" {
   minio_externalIPs = var.postgres_externalIPs
   depends_on = [kubernetes_secret_v1.postgres]
   minio_namespace = var.postgres_namespace
+  minio_hostname = var.minio_hostname
 }
