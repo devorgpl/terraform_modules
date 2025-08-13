@@ -15,14 +15,6 @@ resource "kubernetes_secret_v1" "keycloak" {
   }
 }
 
-provider "postgresql" {
-  database_username = "postgres"
-  username = "postgres"
-  password = var.postgres_rootpassword
-  host = var.postgres_externalIPs[0]
-  sslmode  = "disable"
-}
-
 module "keycloak_database" {
   source = "../../database/postgres-db"
   database_name = var.keycloak_db_user
