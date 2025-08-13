@@ -1,0 +1,5 @@
+- certificate manager (local + domain ssl)
+- secrets managment
+- base import (db, realm)
+- backup/restore (install from backup)
+- grafana -> OIDC

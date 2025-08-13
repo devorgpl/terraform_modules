@@ -11,7 +11,7 @@ variable "postgres_rootpassword" {
 
 variable "postgres_externalIPs" {
   type = list(string)
-  default = ["172.31.65.109"]
+  default = ["172.31.65.101"]
 }
 
 variable "keycloak_db_password" {
