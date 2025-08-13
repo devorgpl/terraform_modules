@@ -15,22 +15,20 @@ resource "kubernetes_secret_v1" "keycloak" {
   }
 }
 
-resource "postgresql_role" "keycloak" {
-  name = var.keycloak_db_user
-  password = var.keycloak_db_password
-  login            = true
-  depends_on = [module.database_postgres]
+provider "postgresql" {
+  database_username = "postgres"
+  username = "postgres"
+  password = var.postgres_rootpassword
+  host = var.postgres_externalIPs[0]
+  sslmode  = "disable"
 }
 
-resource "postgresql_database" "keycloak" {
-  name                   = var.keycloak_db_user
-  owner                  = var.keycloak_db_user
-  template               = "template0"
-  lc_collate             = "C"
-  connection_limit       = -1
-  allow_connections      = true
-  alter_object_ownership = true
-  depends_on = [module.database_postgres, postgresql_role.keycloak]
+module "keycloak_database" {
+  source = "../../database/postgres-db"
+  database_name = var.keycloak_db_user
+  user_name = var.keycloak_db_user
+  user_password = var.keycloak_db_password
+  depends_on = [module.database_postgres]
 }
 
 module "oidc" {
@@ -43,4 +41,5 @@ module "oidc" {
   keycloak_db_database = var.keycloak_db_user
   keycloak_db_password = var.keycloak_db_password
   keycloak_namespace = kubernetes_namespace_v1.idp_namespace.metadata[0].name
+  depends_on = [module.keycloak_database, kubernetes_secret_v1.keycloak]
 }

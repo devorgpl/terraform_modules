@@ -24,14 +24,6 @@ module "database_postgres" {
   postgres_namespace = var.postgres_namespace
 }
 
-provider "postgresql" {
-  database_username = "postgres"
-  username = "postgres"
-  password = module.database_postgres.postgres_rootpassword
-  host = var.postgres_externalIPs[0]
-  sslmode  = "disable"
-}
-
 # MINIO
 module "database_minio" {
   source = "../../database/minio"

@@ -1,29 +1,17 @@
-# NOT WORKING!
-locals {
-  create_script = templatefile("${path.module}/templates/create_db_if_not_exists.sql.tftpl", {
-    database_name: var.postgres_rootpassword,
-    user_name: var.postgres_externalIPs
-    user_password: var.postgres_existing_secret
-  })
+
+resource "postgresql_role" "keycloak" {
+  name = var.user_name
+  password = var.user_password
+  login            = true
 }
 
-resource "kubernetes_job_v1" "database" {
-  metadata {
-    namespace = var.postgres_namespace
-  }
-  spec {
-    template {
-      spec {
-        container {
-          name = "create-db"
-          image = "docker.io/bitnami/postgresql:17"
-          command = [ "bin/sh", "-c", "psql -a -f /sqlCommand.sql" ]
-          env = {
-            DB_HOST = var.postgres_hostname
-            DB_PASSWORD = var.postgres_rootpassword
-          }
-        }
-      }
-    }
-  }
+resource "postgresql_database" "keycloak" {
+  name                   = var.database_name
+  owner                  = var.user_name
+  template               = "template0"
+  lc_collate             = "C"
+  connection_limit       = -1
+  allow_connections      = true
+  alter_object_ownership = true
+  depends_on = [postgresql_role.keycloak]
 }
