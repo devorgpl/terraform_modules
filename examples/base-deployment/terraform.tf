@@ -1,6 +1,7 @@
 
 module "base-system" {
   source = "../../integrated/base-system"
+  # source = "github.com/devorgpl/terraform_modules/integrated/base-system"
   postgres = {
     enabled = 1
     rootpassword = var.postgres_rootpassword
