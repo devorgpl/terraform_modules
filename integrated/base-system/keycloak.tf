@@ -2,6 +2,7 @@ resource "kubernetes_namespace_v1" "idp_namespace" {
   metadata {
     name = "idp"
   }
+  depends_on = [time_sleep.database_installed]
 }
 
 resource "kubernetes_secret_v1" "keycloak" {
@@ -13,6 +14,7 @@ resource "kubernetes_secret_v1" "keycloak" {
     "admin-password": var.keycloak.adminpassword
     "keycloak-password": var.keycloak.adminpassword
   }
+  depends_on = [kubernetes_namespace_v1.idp_namespace]
 }
 
 module "keycloak_database" {
@@ -20,7 +22,7 @@ module "keycloak_database" {
   database_name = var.keycloak.db_user
   user_name = var.keycloak.db_user
   user_password = var.keycloak.db_password
-  depends_on = [module.database_postgres]
+  depends_on = [kubernetes_secret_v1.keycloak]
 }
 
 module "oidc" {
@@ -33,5 +35,5 @@ module "oidc" {
   keycloak_db_database = var.keycloak.db_user
   keycloak_db_password = var.keycloak.db_password
   keycloak_namespace = kubernetes_namespace_v1.idp_namespace.metadata[0].name
-  depends_on = [module.keycloak_database, kubernetes_secret_v1.keycloak]
+  depends_on = [module.keycloak_database, kubernetes_secret_v1.keycloak, kubernetes_namespace_v1.idp_namespace]
 }

@@ -2,6 +2,7 @@ resource "kubernetes_namespace_v1" "database_namespace" {
   metadata {
     name = var.postgres.namespace
   }
+  depends_on = [time_sleep.monitoring_installed]
 }
 
 resource "kubernetes_secret_v1" "postgres" {
@@ -43,11 +44,12 @@ resource "kubernetes_secret_v1" "mysql" {
     "mysql-root-password": var.mysql.rootpassword
     "mysql-password": var.mysql.rootpassword
   }
+  depends_on = [kubernetes_namespace_v1.database_namespace]
 }
 
 module "database_mysql" {
   source = "../../database/mysql"
-  depends_on = [kubernetes_secret_v1.mysql]
+  depends_on = [kubernetes_secret_v1.mysql, module.database_postgres]
   mysql_enabled_count = var.mysql.enabled
   mysql_existing_secret = kubernetes_secret_v1.mysql.metadata[0].name
   mysql_rootpassword = var.mysql.rootpassword
@@ -67,6 +69,7 @@ resource "kubernetes_secret_v1" "redis" {
 
 module "database_redis" {
   source = "../../database/redis"
+  depends_on = [kubernetes_secret_v1.redis]
   redis_enabled_count = var.redis.enabled
   redis_externalIPs = var.redis.externalIPs
   redis_existing_secret = kubernetes_secret_v1.redis.metadata[0].name
@@ -80,4 +83,5 @@ module "database_kafka" {
   kafka_externalIPs = var.kafka.externalIPs
   kafka_namespace = var.kafka.namespace
   kafka_rootpassword = var.kafka.rootpassword
+  depends_on = [kubernetes_namespace_v1.database_namespace, module.database_mysql]
 }
