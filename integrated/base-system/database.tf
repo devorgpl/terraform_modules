@@ -33,3 +33,51 @@ module "database_minio" {
   minio_namespace = var.minio.namespace
   minio_hostname = var.minio.hostname
 }
+
+resource "kubernetes_secret_v1" "mysql" {
+  metadata {
+    name = "mysqlsecret"
+    namespace = var.mysql.namespace
+  }
+  data = {
+    "mysql-root-password": var.mysql.rootpassword
+    "mysql-password": var.mysql.rootpassword
+  }
+}
+
+module "database_mysql" {
+  source = "../../database/mysql"
+  depends_on = [kubernetes_secret_v1.mysql]
+  mysql_enabled_count = var.mysql.enabled
+  mysql_existing_secret = kubernetes_secret_v1.mysql.metadata[0].name
+  mysql_rootpassword = var.mysql.rootpassword
+  mysql_externalIPs = var.mysql.externalIPs
+  mysql_namespace = var.mysql.namespace
+}
+
+resource "kubernetes_secret_v1" "redis" {
+  metadata {
+    name = "redissecret"
+    namespace = var.redis.namespace
+  }
+  data = {
+    "redis-root-password": var.redis.rootpassword
+  }
+}
+
+module "database_redis" {
+  source = "../../database/redis"
+  redis_enabled_count = var.redis.enabled
+  redis_externalIPs = var.redis.externalIPs
+  redis_existing_secret = kubernetes_secret_v1.redis.metadata[0].name
+  redis_namespace = var.redis.namespace
+  redis_rootpassword = var.redis.rootpassword
+}
+
+module "database_kafka" {
+  source = "../../database/kafka"
+  kafka_enabled_count = var.kafka.enabled
+  kafka_externalIPs = var.kafka.externalIPs
+  kafka_namespace = var.kafka.namespace
+  kafka_rootpassword = var.kafka.rootpassword
+}

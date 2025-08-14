@@ -72,3 +72,48 @@ variable "prometheus" {
     prometheus_hostname = ""
   }
 }
+
+variable "mysql" {
+  type = object({
+    enabled = number
+    namespace = string
+    rootpassword = string
+    externalIPs = list(string)
+  })
+  default = {
+    enabled = 1
+    namespace = "database"
+    rootpassword = ""
+    externalIPs = []
+  }
+}
+
+variable "kafka" {
+  type = object({
+    enabled = number
+    namespace = string
+    rootpassword = string
+    externalIPs = list(string)
+  })
+  default = {
+    enabled = 1
+    namespace = "database"
+    rootpassword = ""
+    externalIPs = []
+  }
+}
+
+variable "redis" {
+  type = object({
+    enabled = number
+    namespace = string
+    rootpassword = string
+    externalIPs = list(string)
+  })
+  default = {
+    enabled = 1
+    namespace = "database"
+    rootpassword = ""
+    externalIPs = []
+  }
+}

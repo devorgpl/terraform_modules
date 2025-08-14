@@ -32,4 +32,22 @@ module "base-system" {
   mailpit = {
     hostname = var.mailpit_hostname
   }
+  kafka = {
+    enabled = 1
+    rootpassword = var.postgres_rootpassword
+    externalIPs = ["172.31.65.101"]
+    namespace = "database"
+  }
+  redis = {
+    enabled = 1
+    rootpassword = var.postgres_rootpassword
+    externalIPs = ["172.31.65.101"]
+    namespace = "database"
+  }
+  mysql = {
+    enabled = 1
+    rootpassword = var.postgres_rootpassword
+    externalIPs = ["172.31.65.101"]
+    namespace = "database"
+  }
 }
