@@ -65,6 +65,7 @@ resource "kubernetes_secret_v1" "redis" {
   data = {
     "redis-root-password": var.redis.rootpassword
   }
+  depends_on = [kubernetes_namespace_v1.database_namespace]
 }
 
 module "database_redis" {
